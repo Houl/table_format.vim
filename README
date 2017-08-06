@@ -1,11 +1,17 @@
+(This is the original description with modifications).
+
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=857
 
-The plugin script table_format.vim is a text formatting tool.  It
-arranges words or groups of words on consecutive lines into a neatly
-formatted table.
+tablefmt-vim is a text formatting tool.  It arranges words or groups of
+words on consecutive lines into a neatly formatted table.
 
-There are two keyboard shortcuts defined: \t and \T.  Each work
-slightly differently.
+There are two suggested keyboard shortcuts: \t and \T.  These are not
+defined per default -- put the following in your vimrc:
+
+    :map <expr> <Leader>t tablefmt#Plug("onespace")|ounmap <Leader>t|sunmap <Leader>t
+    :map <expr> <Leader>T tablefmt#Plug("twospaces")|ounmap <Leader>T|sunmap <Leader>T
+
+Each work slightly differently.
 
 - \t (lowercase 't') is referred to as a mode 0 table command.  This
   means that words separated by a single space are arranged into
@@ -37,7 +43,7 @@ slightly differently.
 
 - The internal table formatting functions can be called directly:
 
-    :[range]call Table(space_split, space_padding, max_field_length,
+    :[range]call tablefmt#FormatRange(space_split, space_padding, max_field_length,
         col_start, col_end)
 
   All of the parameters are optional.
@@ -71,6 +77,6 @@ slightly differently.
     There is an alternate version of the above function where the
     range can be passed in directly:
 
-    :call TableRange(firstline, lastline, space_split, space_padding,
+    :call tablefmt#Format(firstline, lastline, space_split, space_padding,
         max_field_length, col_start, col_end)
 
