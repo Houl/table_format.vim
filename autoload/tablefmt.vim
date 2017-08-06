@@ -17,10 +17,16 @@
 " 2009 Feb 12	changed plug maps (actually made them working!!)
 " 2005 Sep 19	slightly modified by anwo
 
-"if exists('loaded_tablefmt') || &cp
-"    finish
-"endif
+if exists('loaded_tablefmt') || &cp
+    finish
+endif
 let loaded_tablefmt = 1
+
+if v:version < 703
+    " strwidth() is used
+    echoerr 'tablefmt: Vim 7.3 is required'
+    finish
+endif
 
 "----------------------------------------------------------------------
 " Globals
@@ -329,7 +335,7 @@ func! s:Tokenize(line_num, space_split, col_start, col_end) "{{{
     endif
     let s:tkn_strings = split(str, splitpat)
     let s:tkn_count = len(s:tkn_strings)
-    let s:tkn_lengths = map(range(s:tkn_count), 'nwo#str#Width(s:tkn_strings[v:val])')
+    let s:tkn_lengths = map(range(s:tkn_count), 'strwidth(s:tkn_strings[v:val])')
 endfunc "}}}
 
 " echo expand("<sfile>:t") "loaded"
